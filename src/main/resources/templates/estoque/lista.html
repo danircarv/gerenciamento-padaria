@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estoque - Sistema Gestão Padaria</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">🥖 Gestão Padaria</a>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/produtos">Produtos</a></li>
+                <li><a href="/estoque" class="active">Estoque</a></li>
+                <li><a href="/estoque/alertas">Alertas</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>📊 Controle de Estoque</h1>
+            <a href="/estoque/alertas" class="btn btn-warning">⚠️ Ver Alertas</a>
+        </div>
+
+        <div th:if="${sucesso}" class="alert alert-success">
+            <span th:text="${sucesso}"></span>
+        </div>
+
+        <div th:if="${erro}" class="alert alert-error">
+            <span th:text="${erro}"></span>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Quantidade Atual</th>
+                    <th>Quantidade Mínima</th>
+                    <th>Quantidade Máxima</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="estoque : ${estoques}" 
+                    th:classappend="${estoque.abaixoDoMinimo() ? 'row-warning' : ''}">
+                    <td th:text="${estoque.nomeProduto}"></td>
+                    <td th:text="${estoque.quantidade}"></td>
+                    <td th:text="${estoque.quantidadeMinima}"></td>
+                    <td th:text="${estoque.quantidadeMaxima}"></td>
+                    <td>
+                        <span th:if="${estoque.abaixoDoMinimo()}" class="badge badge-danger">Estoque Baixo</span>
+                        <span th:unless="${estoque.abaixoDoMinimo()}" class="badge badge-success">OK</span>
+                    </td>
+                    <td>
+                        <a th:href="@{/estoque/{id}/editar(id=${estoque.id})}" class="btn btn-sm btn-info">Ajustar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div th:if="${#lists.isEmpty(estoques)}" class="empty-state">
+            <p>Nenhum estoque cadastrado.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Sistema Gestão Padaria</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alertas de Estoque - Sistema Gestão Padaria</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">🥖 Gestão Padaria</a>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/produtos">Produtos</a></li>
+                <li><a href="/estoque">Estoque</a></li>
+                <li><a href="/estoque/alertas" class="active">Alertas</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>⚠️ Alertas de Estoque Baixo</h1>
+            <a href="/estoque" class="btn btn-secondary">← Voltar ao Estoque</a>
+        </div>
+
+        <div th:if="${!#lists.isEmpty(estoques)}" class="alert alert-warning">
+            <strong>Atenção!</strong> Existem <span th:text="${#lists.size(estoques)}"></span> produto(s) com estoque abaixo do mínimo.
+        </div>
+
+        <table class="table" th:if="${!#lists.isEmpty(estoques)}">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Quantidade Atual</th>
+                    <th>Quantidade Mínima</th>
+                    <th>Diferença</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="estoque : ${estoques}" class="row-warning">
+                    <td th:text="${estoque.nomeProduto}"></td>
+                    <td th:text="${estoque.quantidade}"></td>
+                    <td th:text="${estoque.quantidadeMinima}"></td>
+                    <td th:text="${estoque.quantidadeMinima - estoque.quantidade}"></td>
+                    <td>
+                        <a th:href="@{/estoque/{id}/editar(id=${estoque.id})}" class="btn btn-sm btn-warning">Ajustar Estoque</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div th:if="${#lists.isEmpty(estoques)}" class="empty-state">
+            <div class="alert alert-success">
+                <strong>✓ Tudo certo!</strong> Não há produtos com estoque abaixo do mínimo.
+            </div>
+            <a href="/estoque" class="btn btn-primary">Ver Estoque Completo</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Sistema Gestão Padaria</p>
+    </footer>
+</body>
+</html>

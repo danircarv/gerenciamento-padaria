@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos - Sistema Gestão Padaria</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">🥖 Gestão Padaria</a>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/produtos" class="active">Produtos</a></li>
+                <li><a href="/estoque">Estoque</a></li>
+                <li><a href="/estoque/alertas">Alertas</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>📦 Produtos</h1>
+            <a href="/produtos/novo" class="btn btn-primary">+ Novo Produto</a>
+        </div>
+
+        <div th:if="${sucesso}" class="alert alert-success">
+            <span th:text="${sucesso}"></span>
+        </div>
+
+        <div th:if="${erro}" class="alert alert-error">
+            <span th:text="${erro}"></span>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Categoria</th>
+                    <th>Preço</th>
+                    <th>Unidade</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="produto : ${produtos}">
+                    <td th:text="${produto.id}"></td>
+                    <td th:text="${produto.nome}"></td>
+                    <td th:text="${produto.categoria}"></td>
+                    <td th:text="${'R$ ' + #numbers.formatDecimal(produto.preco, 1, 2)}"></td>
+                    <td th:text="${produto.unidadeMedida}"></td>
+                    <td>
+                        <span th:if="${produto.ativo}" class="badge badge-success">Ativo</span>
+                        <span th:unless="${produto.ativo}" class="badge badge-secondary">Inativo</span>
+                    </td>
+                    <td>
+                        <a th:href="@{/produtos/{id}/editar(id=${produto.id})}" class="btn btn-sm btn-info">Editar</a>
+                        <a th:href="@{/produtos/{id}/excluir(id=${produto.id})}" 
+                           class="btn btn-sm btn-danger" 
+                           onclick="return confirm('Tem certeza que deseja excluir este produto?')">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div th:if="${#lists.isEmpty(produtos)}" class="empty-state">
+            <p>Nenhum produto cadastrado.</p>
+            <a href="/produtos/novo" class="btn btn-primary">Cadastrar primeiro produto</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Sistema Gestão Padaria</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Gestão Padaria</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">🥖 Gestão Padaria</a>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/produtos">Produtos</a></li>
+                <li><a href="/estoque">Estoque</a></li>
+                <li><a href="/estoque/alertas">Alertas</a></li>
+                <li><a href="/api/relatorios/estoque">Relatórios</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Sistema de Gestão de Padaria</h1>
+            <p>Gerencie produtos, estoque, vendas, clientes, fornecedores e encomendas de forma eficiente</p>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <h3>📦 Produtos</h3>
+                <p>Cadastro e gerenciamento de produtos</p>
+                <a href="/produtos" class="btn">Acessar</a>
+            </div>
+
+            <div class="card">
+                <h3>📊 Estoque</h3>
+                <p>Controle de estoque com alertas</p>
+                <a href="/estoque" class="btn">Acessar</a>
+            </div>
+
+            <div class="card">
+                <h3>💰 Vendas</h3>
+                <p>Registro de vendas e faturamento</p>
+                <a href="/api/vendas" class="btn">API REST</a>
+            </div>
+
+            <div class="card">
+                <h3>👥 Clientes</h3>
+                <p>Gestão de clientes</p>
+                <a href="/api/clientes" class="btn">API REST</a>
+            </div>
+
+            <div class="card">
+                <h3>🏢 Fornecedores</h3>
+                <p>Cadastro de fornecedores</p>
+                <a href="/api/fornecedores" class="btn">API REST</a>
+            </div>
+
+            <div class="card">
+                <h3>📋 Encomendas</h3>
+                <p>Gerenciamento de encomendas</p>
+                <a href="/api/encomendas" class="btn">API REST</a>
+            </div>
+
+            <div class="card">
+                <h3>📈 Relatórios</h3>
+                <p>Relatórios de vendas e estoque</p>
+                <a href="/api/relatorios/estoque" class="btn">Ver Relatórios</a>
+            </div>
+
+            <div class="card">
+                <h3>🔌 API REST</h3>
+                <p>Endpoints para integração</p>
+                <a href="/api" class="btn">Documentação</a>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>Módulos do Sistema</h2>
+            <ul>
+                <li><strong>Produtos:</strong> CRUD completo com categorias e controle de ativos</li>
+                <li><strong>Estoque:</strong> Controle de quantidade, alertas de estoque baixo</li>
+                <li><strong>Vendas:</strong> Registro de vendas com itens e integração com estoque</li>
+                <li><strong>Clientes:</strong> Cadastro de clientes com CPF, contato e endereço</li>
+                <li><strong>Fornecedores:</strong> Gestão de fornecedores com CNPJ e contatos</li>
+                <li><strong>Encomendas:</strong> Pedidos especiais com data de entrega e status</li>
+                <li><strong>Relatórios:</strong> Relatórios de vendas diárias, mensais e estoque</li>
+            </ul>
+        </div>
+
+        <div class="info-section">
+            <h2>Tecnologias Utilizadas</h2>
+            <ul>
+                <li>Java 17</li>
+                <li>Spring Boot 3.2</li>
+                <li>JDBC puro com JdbcTemplate (sem JPA)</li>
+                <li>MySQL 8</li>
+                <li>Thymeleaf</li>
+                <li>Maven</li>
+            </ul>
+        </div>
+
+        <div class="info-section">
+            <h2>API REST Endpoints</h2>
+            <ul>
+                <li><code>GET /api/produtos</code> - Listar produtos</li>
+                <li><code>POST /api/produtos</code> - Criar produto</li>
+                <li><code>GET /api/estoque</code> - Listar estoque</li>
+                <li><code>GET /api/estoque/alertas</code> - Alertas de estoque baixo</li>
+                <li><code>GET /api/vendas</code> - Listar vendas</li>
+                <li><code>POST /api/vendas</code> - Registrar venda</li>
+                <li><code>GET /api/clientes</code> - Listar clientes</li>
+                <li><code>GET /api/fornecedores</code> - Listar fornecedores</li>
+                <li><code>GET /api/encomendas</code> - Listar encomendas</li>
+                <li><code>GET /api/relatorios/vendas/diario?data=2024-01-01</code> - Relatório diário</li>
+                <li><code>GET /api/relatorios/vendas/mensal?ano=2024&mes=1</code> - Relatório mensal</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Sistema Gestão Padaria - Desenvolvido com Spring Boot + JDBC + MySQL</p>
+    </footer>
+</body>
+</html>
